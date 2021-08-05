@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Исследование волновых явлении в гетерогенных средах</title>
+
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Исследование волновых явлении в гетерогенных средах: Асимтотическое приближение для
+        низких частот</a>
+</nav>
+
+<main role="main" class="container">
+    <a href="/" th:text="'<Назад'"></a>
+    <div class="starter-template">
+        <h1>Зависимость наименьшего собственного значения от сдвига фазы ξ для различных концентраций k (вода и воздух)</h1>
+    </div>
+
+    <div class="row">
+        <div class="column">
+            <form action="#" th:action="@{/lowfrequencies}" th:object="${model}" method="post">
+                <div class="row">
+                    <div class="column">
+                        <p>c<sub>1</sub>: <input type="number" step="0.001" th:field="*{c1}"/></p>
+                        <p>τ: <input type="number" step="0.001" th:field="*{tau}"/></p>
+                    </div>
+                    <div class="column">
+                        <p>c<sub>2</sub>: <input type="number" step="0.001" th:field="*{c2}"/></p>
+                        <p>k<sub>1</sub>: <input type="number" step="0.001" th:field="*{k1}"/></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <p>k1: <input type="number" step="0.001" th:field="*{k11}"/></p>
+                    </div>
+                    <div class="column">
+                        <p>k2: <input type="number" step="0.001" th:field="*{k22}"/></p>
+                    </div>
+                    <div class="column">
+                        <p>k3: <input type="number" step="0.001" th:field="*{k33}"/></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <p>ξ<sub>Min</sub>: π*<input type="number" step="0.001" th:field="*{xiMin}"/></p>
+                    </div>
+                    <div class="column">
+                        <p>ξ<sub>Max</sub>: π*<input type="number" step="0.001" th:field="*{xiMax}"/></p>
+                    </div>
+                </div>
+                <p th:text="'kappa: ' + ${model.kappa}"/>
+                <p th:text="'k2: ' + ${model.k2}"/>
+                <p><input type="submit" value="Расчет"/></p>
+            </form>
+        </div>
+        <div class="column chart">
+        </div>
+        <div class="column chart">
+            <div id="chart_div"></div>
+        </div>
+    </div>
+
+
+</main>
+
+<script th:inline="javascript">
+    var real_data = /*[[${chartData1}]]*/'noValue';
+    var point_data = /*[[${pointData1}]]*/'noValue';
+    var real_data2 = /*[[${chartData2}]]*/'noValue';
+    var point_data2 = /*[[${pointData2}]]*/'noValue';
+    var real_data3 = /*[[${chartData3}]]*/'noValue';
+    var point_data3 = /*[[${pointData3}]]*/'noValue';
+    $(document).ready(function () {
+        google.charts.load('current', {
+            packages: ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawColumnChart);
+    });
+
+    function drawColumnChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'ξ');
+        data.addColumn('number', 'k1');
+        data.addColumn({type: 'number', role: 'interval'});
+        data.addColumn('number', 'k2');
+        data.addColumn({type: 'number', role: 'interval'});
+        data.addColumn('number', 'k3');
+        data.addColumn({type: 'number', role: 'interval'});
+        Object.keys(real_data).forEach(function (key) {
+            data.addRow([key, real_data[key], point_data[key], real_data2[key], point_data2[key],real_data3[key], point_data3[key]]);
+        });
+        var options = {
+            hAxis: {
+                title: 'ξ',
+                textPosition: 'none'
+            },
+            vAxis: {
+                title: 'λ',
+                textPosition: 'left'
+            },
+            legend: {position: 'bottom'}
+        };
+        var chart = new google.visualization.LineChart(document
+            .getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+</script>
+
+<script type="text/javascript" th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+</body>
+</html>

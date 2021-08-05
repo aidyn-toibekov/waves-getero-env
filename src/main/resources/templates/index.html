@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Исследование волновых явлении в гетерогенных средах</title>
+
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Исследование волновых явлении в гетерогенных средах</a>
+</nav>
+
+<main role="main" class="container">
+
+    <div class="starter-template">
+        <h1>Исследование волновых явлении в гетерогенных средах</h1>
+        <h2>
+            <span th:text="'Цель работы:'"></span>
+        </h2>
+        <h4>
+            <span th:text="'Для геофизического журнала'"></span>
+        </h4>
+    </div>
+
+    <ol>
+        <li th:text="'Формулы для определения скорости звука в неоднородной среде'"></li>
+        <li th:text="'Отражение от границы раздела двух сред'"></li>
+        <li th:text="'Определение относительной  концентрации для неоднородной среды при помощи скорости звука'"></li>
+    </ol>
+
+    <div class="note">
+        <h4>Визуализации:</h4>
+        <ol>
+            <li><a href="/waterair">Полосы пропускания для вода воздух</a></li>
+            <li><a href="#">Асимтотическое приближение для низких частот</a>
+                <ul>
+                    <li><a href="/lowfrequencies">Зависимость наименьшего собственного значения от сдвига фазы ξ для различных концентраций k (вода и воздух)</a></li>
+                    <li><a href="/concentration">Зависимость с.з. от концентрации k (вода, воздух)</a></li>
+                </ul>
+            </li>
+        </ol>
+
+    </div>
+
+</main>
+<!-- /.container -->
+
+<script type="text/javascript" th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+</body>
+</html>
